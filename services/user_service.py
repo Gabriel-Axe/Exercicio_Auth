@@ -1,0 +1,40 @@
+class AuthService:
+
+  @staticmethod
+  def register(data):
+    session = SessionLocal()
+    user = User(
+        email = data["email"],
+        password_hash=generate_password_hash(date["password"])
+        )
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+    session.close()
+    return user
+
+  @staticmethod
+  def login(data):
+    session = SessionLocal()
+    user = session.query(User).filter(User.email == data["email"]).first()
+
+    if not User:
+      session.close()
+      return None
+
+    if not check_password_hash(user.password_hash, data["password"]):
+      session.close()
+      return None
+
+    user.token = secrets.token_hex(32)
+    session.commit()
+    session.refresh(user)
+    session.close()
+    return user
+
+  @staticmethod
+  def get_user_by_token(token):
+    session = SessionLocal()
+    user = session.query(User).filter(User.token == token).first()
+    session.close()
+    return user
