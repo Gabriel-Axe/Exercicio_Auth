@@ -14,4 +14,4 @@ class User(base.Base):
   email = Column(String, unique=True, nullable=False)
   password_hash = Column(String, nullable=False)
   token = Column(String)
-  type = Column(Integer)
+  type = Column(Integer, nullable=False)

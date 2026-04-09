@@ -8,14 +8,14 @@ auth_bp = Blueprint("auth_bp", __name__)
 def register():
     data = request.json
     user: User = AuthService.register(data)
-    return {"id": user.id, "email": user.email, "user_type": user.type}, 201
+    return {"id": user.id, "email": user.email, "user role": user.type}, 201
 
 @auth_bp.route("/login", methods = ["POST"])
 def login():
-    data = request.json
-    user = AuthService.login (data)
+   data = request.json
+   user = AuthService.login(data)
 
-    if not user:
+   if not user:
         return {"erro":"credenciais inválidas"}, 401 
     
-    return {"token": user.token}
+   return {"token": user.token}

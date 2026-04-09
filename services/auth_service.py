@@ -1,6 +1,7 @@
 from config.database import SessionLocal
 from models.user import User
 from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
 
 class AuthService:
 
@@ -9,7 +10,8 @@ class AuthService:
     session = SessionLocal()
     user = User(
         email = data["email"],
-        password_hash=generate_password_hash(data["password"])
+        password_hash=generate_password_hash(data["password"]),
+        type=data["role"]
         )
     session.add(user)
     session.commit()
