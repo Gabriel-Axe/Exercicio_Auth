@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
+from .animal import Animal
 from . import base
 
 class Tutor(base.Base):
@@ -9,7 +10,7 @@ class Tutor(base.Base):
   nome = Column(String(100), nullable=False)
   telefone = Column(String(20), nullable=False)
   email = Column(String(100), unique=True, nullable=False)
-  animais = relationship ("Animal", back_populates = "tutor", cascade = "all, delete")
-  user = relationship("User", back_populates="emailUnico", cascade = "all, delete")
+  # animais = relationship ("Animal", back_populates = "tutor", cascade = "all, delete")
+  # user = relationship("User", back_populates="emailUnico", cascade = "all, delete")
 
   # animais = relationship("Animal", back_populates="cliente")

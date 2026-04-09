@@ -42,5 +42,5 @@ def verify_role(*allowed_roles: list[User_Types]):
         return {"erro": "Usuário não autorizado"}, 403
 
       return f(*args, user=user, **kwargs)
-    return decorated_function
+    return wrapper
   return decorator

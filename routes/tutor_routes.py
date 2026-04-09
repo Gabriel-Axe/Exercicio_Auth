@@ -48,6 +48,6 @@ def atualizar(tutor_id):
 @verify_role([User_Types.ADM])
 def deletar(tutor_id):
   ok = TutorService.delete_tutor(tutor_id)
-    if not ok:
-      return {"erro": "tutor não existe"}, 404
-    return {"mensagem": "tutor removido"}
+  if not ok:
+    return {"erro": "tutor não existe"}, 404
+  return {"mensagem": "tutor removido"}

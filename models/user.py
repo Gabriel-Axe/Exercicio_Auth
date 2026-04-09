@@ -1,6 +1,5 @@
 from enum import Enum
-from sqlalchemy import Column, Integer, String, false
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
 from . import base
 
 class User_Types(Enum):
