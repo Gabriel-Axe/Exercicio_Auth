@@ -11,6 +11,5 @@ class Animal(base.Base):
   raca = Column(String)
   sexo = Column(String)
   data_nascimento = Column(Date)
-  # id_tutor = Column(Integer, ForeignKey("tutor.id_tutor", ondelete="CASCADE"), nullable=False)
-
-  # tutor = relationship("Tutor", back_populates="animais")
+  id_tutor = Column(Integer, ForeignKey("tutor.id_tutor", ondelete="CASCADE"), nullable=False)
+  tutor = relationship("Tutor", back_populates="animais")
