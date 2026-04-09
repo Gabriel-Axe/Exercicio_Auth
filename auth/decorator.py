@@ -10,7 +10,7 @@ def auth_required(f):
     auth_header = request.headers.get("Authorization")
 
     if not auth_header or not auth_header.startswith("Token "):
-      return {"erro": "Token ausente ou invalido"}, 401
+      return {"erro": f"Token ausente ou invalido: {auth_header}"}, 401
 
     token = auth_header.split(" ")[1]
     user = AuthService.get_user_by_token(token)
@@ -35,12 +35,23 @@ def verify_role(*allowed_roles: list[User_Types]):
       token = auth_header.split(" ")[1]
       user = AuthService.get_user_by_token(token)
 
+      user_type = None
+      match user.type:
+        case User_Types.TUTOR.value:
+          user_type = User_Types.TUTOR
+        case User_Types.VET.value:
+            user_type = User_Types.VET
+        case User_Types.ADM.value:
+          user_type = User_Types.ADM
+        case _:
+          pass
+
       if not user:
         return jsonify({"erro": "Token inválido ou não encontrado"})
 
-      if user.type not in allowed_roles:
-        return {"erro": "Usuário não autorizado"}, 403
+      if user_type == None or user_type not in allowed_roles:
+        return {"erro": f"Usuário não autorizado\nAutorizados: {[a.name for a in allowed_roles]}\nEnviado: {user_type.name}"}, 403
 
-      return f(*args, user=user, **kwargs)
+      return f(*args, **kwargs)
     return wrapper
   return decorator
