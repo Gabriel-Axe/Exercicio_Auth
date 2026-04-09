@@ -8,7 +8,7 @@ auth_bp = Blueprint("auth_bp", __name__)
 def register():
     data = request.json
     user: User = AuthService.register(data)
-    return {"id": user.id, "email": user.email, "user_type": user.user_type}, 201
+    return {"id": user.id, "email": user.email, "user_type": user.type}, 201
 
 @auth_bp.route("/login", methods = ["POST"])
 def login():
